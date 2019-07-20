@@ -8,11 +8,10 @@ RUN \
 	echo "deb http://security.debian.org/ buster/updates main contrib non-free" >> /etc/apt/sources.list && \
 	echo "deb-src http://ftp.us.debian.org/debian buster main contrib non-free" >> /etc/apt/sources.list && \
 	apt-get update && \
-	apt-get -y install gnupg2 && \
+	apt-get -y install gnupg2 ca-certificates && \
 	apt-key add /assets/bintray-public.key.asc && \
 	apt-get -y dist-upgrade && \
 	apt-get -y install apt-transport-https && \
-	echo "deb https://dl.bintray.com/insideo/buster-backports-randomcoder randomcoder main" >> /etc/apt/sources.list && \
 	apt-get update && \
 	apt-get dist-upgrade && \
 	apt-get -y install build-essential devscripts lintian patch patchutils && \
@@ -34,7 +33,7 @@ RUN \
 		--distribution buster-backports-randomcoder \
 		--force-distribution --noquery \
 		'Build for Debian buster.' && \
-	patch -p1 < /patches/cyrus-sasl2-2.1.27-checkpw.patch && \
+	patch -p1 < /patches/cyrus-sasl2-2.1.27+dfsg-checkpw.patch && \
 	dch -b \
 		--distribution buster-backports-randomcoder \
 		--force-distribution --noquery \
